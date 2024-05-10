@@ -3,11 +3,6 @@
 
 #include <dlfcn.h>
 
-#include <vector>
-#include <string>
-#include <regex>
-#include <algorithm>
-
 #include "include/capi/cef_urlrequest_capi.h"
 #include "include/capi/cef_request_capi.h"
 
@@ -16,8 +11,6 @@
 #else
 #define debug(fmt, args...)
 #endif
-
-std::regex r(".*i.scdn.co/image.*");
 
 extern "C" {
 
@@ -44,7 +37,7 @@ cef_urlrequest_t* cef_urlrequest_create(
 
     debug("%s\n", url_utf8.str);
 
-    if (std::regex_match(std::string(url_utf8.str), r)) {
+    if (strncmp(url_utf8.str, "https://i.scdn.co/image/", 24) == 0) {
         debug("ICON URL FOUND\n");
 
         char url[] = "https://cataas.com/cat";
